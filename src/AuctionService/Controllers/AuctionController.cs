@@ -70,6 +70,7 @@ public class AuctionController : ControllerBase
 
         var newAuction = _mapper.Map<AuctionDto>(auction);
 
+        //! Publish message to service bus
         await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
 
         var result = await _context.SaveChangesAsync() > 0;
@@ -87,6 +88,8 @@ public class AuctionController : ControllerBase
         if (auction == null) return NotFound();
 
         // Todo: check seller match old seller
+
+        Console.WriteLine($"Update model info: {auction.Item.Model} with Id: {auction.Id}");
 
         auction.Item.Make = auctionDto.Make ?? auction.Item.Make;
         auction.Item.Model = auctionDto.Model ?? auction.Item.Model;
@@ -114,6 +117,9 @@ public class AuctionController : ControllerBase
         // Todo: check seller === username
 
         _context.Auctions.Remove(auction);
+
+        //! Publish message to service bus
+        await _publishEndpoint.Publish(_mapper.Map<AuctionDeleted>(auction));
 
         var result = await _context.SaveChangesAsync() > 0;
 

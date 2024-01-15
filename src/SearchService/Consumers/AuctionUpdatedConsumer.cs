@@ -17,13 +17,18 @@ public class AuctionUpdatedConsumer : IConsumer<AuctionUpdated>
 
     public async Task Consume(ConsumeContext<AuctionUpdated> context)
     {
-        Console.WriteLine("->> Consuming auction updated: " + context.Message.Id);
+        Console.WriteLine("--> Consuming auction updated: " + context.Message.Id);
 
         var item = _mapper.Map<Item>(context.Message);
 
-        await DB.Update<Item>()
-            .MatchID(item)
+        Console.WriteLine($"Model update: {item.Model} with Id: {item.ID}");
+
+        var result = await DB.Update<Item>()
+            .MatchID(item.ID)
             .ModifyOnly(x => new { x.Color, x.Make, x.Model, x.Year, x.Mileage }, item)
             .ExecuteAsync();
+
+        if (!result.IsAcknowledged)
+            throw new MessageException(typeof(AuctionUpdated), "Problem updating mongodb");
     }
 }
