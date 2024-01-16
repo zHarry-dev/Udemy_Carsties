@@ -4,6 +4,7 @@
         "mongopw",
         "Npgsql",
         "postgrespw",
+        "Serilog",
         "Veyron"
     ]
 }

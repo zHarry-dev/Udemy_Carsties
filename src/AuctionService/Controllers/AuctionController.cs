@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MassTransit;
 using Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AuctionService.Controller;
 
@@ -58,13 +59,14 @@ public class AuctionController : ControllerBase
         return _mapper.Map<AuctionDto>(auction);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<Guid>> CreateAuction(CreateAuctionDto auctionDto)
     {
         var auction = _mapper.Map<Auction>(auctionDto);
 
         // Todo: Add current user as seller
-        auction.Seller = "test";
+        auction.Seller = User.Identity.Name;
 
         _context.Auctions.Add(auction);
 
@@ -74,12 +76,13 @@ public class AuctionController : ControllerBase
         await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
 
         var result = await _context.SaveChangesAsync() > 0;
- 
+
         if (!result) return BadRequest("Could not save changes to the DB");
 
         return CreatedAtAction(nameof(GetAuctionById), new { auction.Id }, newAuction);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult> UpdateAuction(Guid id, UpdateAuctionDto auctionDto)
     {
@@ -87,7 +90,7 @@ public class AuctionController : ControllerBase
 
         if (auction == null) return NotFound();
 
-        // Todo: check seller match old seller
+        if (auction.Seller != User.Identity.Name) return Forbid();
 
         Console.WriteLine($"Update model info: {auction.Item.Model} with Id: {auction.Id}");
 
@@ -107,6 +110,7 @@ public class AuctionController : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteAuction(Guid id)
     {
@@ -114,7 +118,7 @@ public class AuctionController : ControllerBase
 
         if (auction == null) return NotFound();
 
-        // Todo: check seller === username
+        if (auction.Seller != User.Identity.Name) return Forbid();
 
         _context.Auctions.Remove(auction);
 
