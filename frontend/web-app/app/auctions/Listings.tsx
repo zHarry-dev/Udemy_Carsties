@@ -6,9 +6,9 @@ import AppPagination from '../components/AppPagination';
 import { Auction, PageResult } from '@/types';
 import { getData } from '../actions/auctionAction';
 import Filters from './Filters';
+import qs from 'query-string';
 import { useParamsStore } from '@/hooks/useParamsStore';
 import { shallow } from 'zustand/shallow';
-import qs from 'query-string';
 
 export default function Listings() {
     const [data, setData] = useState<PageResult<Auction>>();
@@ -34,14 +34,14 @@ export default function Listings() {
 
     return (
         <>
-            <Filters pageSize={params.pageSize} setPageSize={setPageSize} />
+            <Filters />
             <div className='grid grid-cols-4 gap-6'>
-                {auctions.map(auction => (
+                {data.results.map(auction => (
                     <AuctionCard auction={auction} key={auction.id} />
                 ))}
             </div>
             <div className='flex justify-center mt-4'>
-                <AppPagination currentPage={pageNumber} pageCount={pageCount} pageChanged={setPageNumber} />
+                <AppPagination currentPage={params.pageNumber} pageCount={data.pageCount} pageChanged={setPageNumber} />
             </div>
         </>
     )
