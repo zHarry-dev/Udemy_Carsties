@@ -42,7 +42,7 @@ export default function Listings() {
                 <EmptyFilter showReset />
             ) : (
                 <>
-                    <div className='grid grid-cols-4 gap-6'>
+                    <div className='grid grid-cols-4 gap-6'> 
                         {data.results.map(auction => (
                             <AuctionCard auction={auction} key={auction.id} />
                         ))}
