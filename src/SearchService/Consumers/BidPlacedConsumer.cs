@@ -17,6 +17,8 @@ public class BidPlacedConsumer : IConsumer<BidPlaced>
         {
             auction.CurrentHighBid = context.Message.Amount;
             await auction.SaveAsync();
+
+            Console.WriteLine("--> Consuming bid placed complete!");
         }
     }
 }

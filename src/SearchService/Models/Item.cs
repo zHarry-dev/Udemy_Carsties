@@ -7,8 +7,8 @@ public class Item : Entity
     public int ReservePrice { get; set; }
     public string Seller { get; set; }
     public string Winner { get; set; }
-    public int? SoldAmount { get; set; }
-    public int? CurrentHighBid { get; set; }
+    public int? SoldAmount { get; set; } = 0;
+    public int? CurrentHighBid { get; set; } = 0;
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
     public DateTime AuctionEnd { get; set; }
