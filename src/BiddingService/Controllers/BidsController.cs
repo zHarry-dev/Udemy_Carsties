@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics;
+using AutoMapper;
 using BiddingService.DTOs;
 using BiddingService.Models;
+using BiddingService.Services;
 using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +17,13 @@ public class BidsController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IPublishEndpoint _publishEndpoint;
+    private readonly GrpcAuctionClient _grpcClient;
 
-    public BidsController(IMapper mapper, IPublishEndpoint publishEndpoint)
+    public BidsController(IMapper mapper, IPublishEndpoint publishEndpoint, GrpcAuctionClient grpcClient)
     {
         _mapper = mapper;
         _publishEndpoint = publishEndpoint;
+        _grpcClient = grpcClient;
     }
 
     [Authorize]
@@ -30,8 +34,19 @@ public class BidsController : ControllerBase
 
         if (auction == null)
         {
-            //! Todo: check with auction service if that has auction
-            return NotFound();
+            // var stopWatch = new Stopwatch();
+            // stopWatch.Start();
+            auction = _grpcClient.GetAuction(auctionId);
+            // stopWatch.Stop();
+            // TimeSpan ts = stopWatch.Elapsed;
+            // // Format and display the TimeSpan value.
+            // string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            //     ts.Hours, ts.Minutes, ts.Seconds,
+            //     ts.Milliseconds / 10);
+            // Console.WriteLine("Time handle (ms): " + ts.Milliseconds);
+            // Console.WriteLine("Time handle: " + elapsedTime);
+
+            if (auction == null) return BadRequest("Cannot accept bids on this auction on this time");
         }
 
         if (auction.Seller == User.Identity.Name)
