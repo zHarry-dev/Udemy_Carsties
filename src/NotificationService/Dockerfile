@@ -18,7 +18,7 @@ COPY src/NotificationService/NotificationService.csproj src/NotificationService/
 RUN dotnet restore Carsties.sln
 
 # Copy the app folders over
-COPY src/NotificationService NotificationService/AuctionService
+COPY src/NotificationService src/NotificationService
 COPY src/Contracts src/Contracts
 WORKDIR /app/src/NotificationService
 RUN dotnet publish -c Release -o /app/src/out
