@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import { Auction } from '@/types';
 
 type Props = {
-    auction: Auction
+    auction: Auction | null
 }
 
 export default function AuctionForm({ auction }: Props) {
