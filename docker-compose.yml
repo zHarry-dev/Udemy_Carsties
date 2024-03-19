@@ -148,7 +148,7 @@ services:
       - id.carsties.com:10.5.0.200
     environment:
       - NEXTAUTH_SECRET=secret
-      - NEXTAUTH_URL=http://app.carsties.com
+      - NEXTAUTH_URL=https://app.carsties.com
       - NEXTAUTH_URL_INTERNAL=http://web-app:3000
       - API_URL=http://gateway-svc/
       - ID_URL=http://id.carsties.com
