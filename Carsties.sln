@@ -23,13 +23,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9CB97066
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.UnitTests", "tests\AuctionService.UnitTests\AuctionService.UnitTests.csproj", "{25EAD2AB-F8C8-49AD-961D-E68666104531}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.IntegrationTests", "tests\AuctionService.IntergationTests\AuctionService.IntegrationTests.csproj", "{27E1E663-C252-4587-81D2-7B6CE2E29CC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BAB99551-98C1-4AF7-9711-000EB78C445F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -64,6 +63,13 @@ Global
 		{25EAD2AB-F8C8-49AD-961D-E68666104531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25EAD2AB-F8C8-49AD-961D-E68666104531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25EAD2AB-F8C8-49AD-961D-E68666104531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27E1E663-C252-4587-81D2-7B6CE2E29CC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27E1E663-C252-4587-81D2-7B6CE2E29CC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27E1E663-C252-4587-81D2-7B6CE2E29CC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27E1E663-C252-4587-81D2-7B6CE2E29CC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BAB99551-98C1-4AF7-9711-000EB78C445F} = {56DA4835-A4B0-48D6-A8D5-2266F3258A3E}
@@ -74,5 +80,6 @@ Global
 		{E65E9FFE-918D-42A9-84C4-D2A133BCFD3C} = {56DA4835-A4B0-48D6-A8D5-2266F3258A3E}
 		{D4A3C616-87D4-414E-A51F-C671BA008BF5} = {56DA4835-A4B0-48D6-A8D5-2266F3258A3E}
 		{25EAD2AB-F8C8-49AD-961D-E68666104531} = {9CB97066-245D-4C86-83E0-9B4AA9F34AEB}
+		{27E1E663-C252-4587-81D2-7B6CE2E29CC7} = {9CB97066-245D-4C86-83E0-9B4AA9F34AEB}
 	EndGlobalSection
 EndGlobal
